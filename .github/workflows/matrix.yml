@@ -1,0 +1,21 @@
+name: artifacts-complex
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+
+
+    steps:
+      - run: |
+          mkdir -p ${{ github.workspace }}/artifact/${{ matrix.version }}
+          echo hello,node version is ${{ matrix.version }} > ${{ github.workspace }}/artifact/${{ matrix.version }}/hello.txt
+      - uses:
+        with:
+          name: ${{ env.name }}-name
+          path: ${{ github.workspace }}/artifact/**/*
+        git add .
+        git commit -m 'complex artifacts'
