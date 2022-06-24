@@ -1,0 +1,22 @@
+name: artifacts-complex
+
+on: [push]
+env:
+  name: klaudia-artifact
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10.x, 12.x]
+      
+
+
+    steps:
+      - run: |
+          mkdir -p ${{ github.workspace }}/artifact/${{ matrix.version }}
+          echo hello,node version is ${{ matrix.version }} > ${{ github.workspace }}/artifact/${{ matrix.version }}/hello.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.name }}-name
+          path: ${{ github.workspace }}/artifact/**/*
